@@ -55,7 +55,7 @@ void setBothPots(int valX, int valY) {
 // Имитация нажатия кнопки с заданной длительностью
 void triggerOptoClick(int durationMs) {
     // Ограничиваем длительность от 50 до 2000 мс
-    durationMs = constrain(durationMs, 50, 2000);
+    durationMs = constrain(durationMs, 100, 9000);
     
     digitalWrite(PIN_OPTO, HIGH);   // Замыкаем
     delay(durationMs);               // Ждем заданное время

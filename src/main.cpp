@@ -27,14 +27,14 @@ class MyServerCallbacks: public BLEServerCallbacks {
     deviceConnected = true;
     greetingSent = false;
     connectionTime = millis();
-    digitalWrite(LED_PIN, LOW);  // LED гаснет при подключении
+    digitalWrite(LED_PIN, HIGH);  // LED гаснет при подключении
     //Serial.println("Client connected");
   }
   
   void onDisconnect(BLEServer* pServer) {
     deviceConnected = false;
     greetingSent = false;
-    digitalWrite(LED_PIN, HIGH);
+    digitalWrite(LED_PIN, LOW);
     //Serial.println("Client disconnected");
     // Перезапускаем рекламу
     pServer->startAdvertising();
@@ -105,7 +105,7 @@ void setup() {
   
   // Настройка LED
   pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, HIGH);  // Начинаем с выключенного (инвертировано)
+  digitalWrite(LED_PIN, LOW);  // Начинаем с выключенного (инвертировано)
   
   // Инициализация BLE
   BLEDevice::init("esp32c");
@@ -164,7 +164,7 @@ void loop() {
   // Мигание LED если нет подключения
   if (!deviceConnected) {
     unsigned long currentMillis = millis();
-    if (currentMillis - lastBlinkTime >= 500) {
+    if (currentMillis - lastBlinkTime >= 300) {
       lastBlinkTime = currentMillis;
       ledState = !ledState;
       digitalWrite(LED_PIN, ledState);
